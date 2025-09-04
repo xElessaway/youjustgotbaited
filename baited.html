@@ -157,6 +157,31 @@
             bottom: 20px;
             right: 20px;
         }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-text {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 40px 30px;
+            }
+            
+            .glitch-text {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-text {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -165,9 +190,9 @@
     <div class="scanlines"></div>
     
     <div class="glitch-text top-left">
-        > system breach detected...<br>
-        > running security protocols...<br>
-        > access level: DENIED
+        &gt; system breach detected...<br>
+        &gt; running security protocols...<br>
+        &gt; access level: DENIED
     </div>
     
     <div class="glitch-text top-right">
@@ -177,9 +202,9 @@
     </div>
     
     <div class="glitch-text bottom-left">
-        > firewall status: ACTIVE<br>
-        > encryption: AES-256<br>
-        > threat level: HIGH
+        &gt; firewall status: ACTIVE<br>
+        &gt; encryption: AES-256<br>
+        &gt; threat level: HIGH
     </div>
     
     <div class="glitch-text bottom-right">
@@ -195,35 +220,44 @@
     </div>
 
     <script>
-        // Matrix background effect
-        function createMatrix() {
-            const matrix = document.getElementById('matrix');
-            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-            
-            for (let i = 0; i < 20; i++) {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                column.style.left = Math.random() * 100 + '%';
-                column.style.animationDelay = Math.random() * 3 + 's';
-                column.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Matrix background effect
+            function createMatrix() {
+                const matrix = document.getElementById('matrix');
+                if (!matrix) return;
                 
-                let text = '';
-                for (let j = 0; j < 20; j++) {
-                    text += chars[Math.floor(Math.random() * chars.length)] + '\n';
+                // Clear existing content
+                matrix.innerHTML = '';
+                
+                // Use simpler characters that are more compatible
+                const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+                
+                for (let i = 0; i < 20; i++) {
+                    const column = document.createElement('div');
+                    column.className = 'matrix-column';
+                    column.style.left = Math.random() * 100 + '%';
+                    column.style.animationDelay = Math.random() * 3 + 's';
+                    column.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    let text = '';
+                    for (let j = 0; j < 20; j++) {
+                        text += chars[Math.floor(Math.random() * chars.length)] + '\n';
+                    }
+                    column.textContent = text;
+                    
+                    matrix.appendChild(column);
                 }
-                column.textContent = text;
-                
-                matrix.appendChild(column);
             }
-        }
-        
-        createMatrix();
-        
-        // Refresh matrix periodically
-        setInterval(() => {
-            document.getElementById('matrix').innerHTML = '';
+            
+            // Initialize matrix effect
             createMatrix();
-        }, 6000);
+            
+            // Refresh matrix periodically
+            setInterval(function() {
+                createMatrix();
+            }, 6000);
+        });
     </script>
 </body>
 </html>
